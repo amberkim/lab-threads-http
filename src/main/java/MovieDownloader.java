@@ -28,11 +28,29 @@ public class MovieDownloader {
 			return null;
 		}
 
+		/**
+		 * create HttpURLConnection variable to make a request
+		 * and BufferedReader reader to read input from inputStream
+		 */
 		HttpURLConnection urlConnection = null;
 		BufferedReader reader = null;
 
-		String[] movies = null;
+		String[] movies = null; // to keep a list of all of the movies
 
+		/**
+		 * Try to make a URL Connection with server, use inputStream to determine
+		 * whether connection has been made, otherwise return null.
+		 * Create new BufferedReader reader to read each line of inputStream of movies
+		 * and compile into parameter buffer.
+		 * If there are no movies, return null.
+		 * Format results and store movies.
+		 * 
+		 * If there is an IOException, return null.
+		 * 
+		 * Finally, disconnect urlConnection and close the reader.
+		 * 
+		 * @return movies
+		 */
 		try {
 
 			URL url = new URL(urlString);
@@ -86,10 +104,13 @@ public class MovieDownloader {
 
 	public static void main(String[] args) 
 	{
-		Scanner sc = new Scanner(System.in);
-
+		Scanner sc = new Scanner(System.in); // to read user input
+		// for whether or not user wants to stop searching for movies
 		boolean searching = true;
-
+		/**
+		 * Take in movie name to search for, find movies in movie database,
+		 * and print results
+		 */
 		while(searching) {					
 			System.out.print("Enter a movie name to search for or type 'q' to quit: ");
 			String searchTerm = sc.nextLine().trim();

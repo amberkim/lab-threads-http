@@ -10,26 +10,54 @@ import java.util.Random;
  * @author Joel Ross
  */
 public class SortRacer {
+	public static class MergeMethod implements Runnable {
+		public void run() {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss.SSSS"); //for output
+
+			Integer[] nums = shuffled((int)Math.pow(10,7), 448);
+			System.out.println("Starting merge sort at "+dateFormat.format(new Date()));
+			Sorting.mergeSort(nums);
+			System.out.println("Merge sort finished at "+dateFormat.format(new Date())+" !");
+		}
+	}
+
+	public static class QuickMethod implements Runnable {
+		public void run() {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss.SSSS"); //for output
+
+			Integer[] nums = shuffled((int)Math.pow(10,7), 448);
+			System.out.println("Starting quicksort at "+dateFormat.format(new Date()));
+			Sorting.quickSort(nums);
+			System.out.println("Quicksort finished at "+dateFormat.format(new Date())+" !");
+		}
+	}
 
 	public static void main(String[] args) 
 	{
-		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss.SSSS"); //for output
-		Integer[] nums;
+		Runnable mergeWorker = new MergeMethod();
+		Runnable quickWorker = new QuickMethod();
+		Thread thread1 = new Thread(mergeWorker);
+		Thread thread2 = new Thread(quickWorker);
+		thread1.start();
+		thread2.start();
+		
+		// SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss.SSSS"); //for output
+		// Integer[] nums;
 
 		
-		/** Merge Sort **/
-		nums = shuffled((int)Math.pow(10,7), 448); //a list of shuffled 10 million numbers
+		// /** Merge Sort **/
+		// nums = shuffled((int)Math.pow(10,7), 448); //a list of shuffled 10 million numbers
 
-		System.out.println("Starting merge sort at "+dateFormat.format(new Date()));
-		Sorting.mergeSort(nums);
-		System.out.println("Merge sort finished at "+dateFormat.format(new Date())+" !");
+		// System.out.println("Starting merge sort at "+dateFormat.format(new Date()));
+		// Sorting.mergeSort(nums);
+		// System.out.println("Merge sort finished at "+dateFormat.format(new Date())+" !");
 
 		
-		/** Quick Sort **/
-		nums = shuffled((int)Math.pow(10,7), 448); //a list of shuffled 10 million numbers
-		System.out.println("Starting quicksort at "+dateFormat.format(new Date()));
-		Sorting.quickSort(nums);
-		System.out.println("Quicksort finished at "+dateFormat.format(new Date())+" !");
+		// /** Quick Sort **/
+		// nums = shuffled((int)Math.pow(10,7), 448); //a list of shuffled 10 million numbers
+		// System.out.println("Starting quicksort at "+dateFormat.format(new Date()));
+		// Sorting.quickSort(nums);
+		// System.out.println("Quicksort finished at "+dateFormat.format(new Date())+" !");
 	}
 	
 	
